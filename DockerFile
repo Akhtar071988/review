@@ -11,13 +11,13 @@ WORKDIR /app
 # Copy file from the "build container identified in line 3
 COPY --from=build build/libs/*.jar app.jar
 ENTRYPOINT ["java", "-jar", "app.jar"]
-EXPOSE 8080
+EXPOSE 8085
 ​
 # Build docker image
 # $ docker build -t reviewservice .
 #
 # Deploy joke service locally
-# $ run -p 8080:8080 reviewservice
+# $ run -p 8085:8085 reviewservice
 # should be available at http://localhost:8080/api/jokes
 #
 # Push to dockerhub
