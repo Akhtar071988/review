@@ -8,6 +8,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 public class RestService {
+    final String baseURL = "http://localhost:8080";
     RestTemplate restTemplate;
 
     public RestService(RestTemplate restTemplate) {
@@ -15,12 +16,14 @@ public class RestService {
     }
 
     public boolean validate(String imdbId){
-        ResponseEntity<Movie> returnValue = restTemplate.getForEntity("/api/movies" +imdbId, Movie.class);
+        String url = baseURL + "/api/movies/imdbId/" + imdbId;
+        ResponseEntity<Movie> returnValue = restTemplate.getForEntity(url, Movie.class);
         boolean valid = returnValue.getBody() != null;
         return valid;
     }
 
     public Movie getMovieInfo(String imdbId) {
-        return (Movie) restTemplate.getForEntity("/api/movies" +imdbId, Model.class).getBody();
+        String url = baseURL + "/api/movies/imdbId/" + imdbId;
+        return (Movie) restTemplate.getForEntity(url, Model.class).getBody();
     }
 }
