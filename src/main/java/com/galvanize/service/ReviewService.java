@@ -27,10 +27,12 @@ public class ReviewService {
         return reviewRepository.findReviewByImdbId(imdbId);
     }
 
-    public Review updateMovieWithStarRating(long reviewId, Review rating) {
-        Review newReview = updateMovieWithStarRating(reviewId, rating);
-        newReview.update(newReview);
-        return postReview(newReview);
+    public Review updateReviewById(Long reviewId, Review review) {
+        if(reviewRepository.existsById(reviewId)){
+            return reviewRepository.save(review);
+        }else {
+            return null;
+        }
     }
 
     public boolean deleteById (long reviewId){

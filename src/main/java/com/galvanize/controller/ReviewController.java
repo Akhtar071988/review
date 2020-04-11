@@ -44,7 +44,7 @@ public class ReviewController {
 
     @PutMapping("/rating/{reviewId}")
     public Review updateMovieReviewWithStarRating(@PathVariable long reviewId, @RequestBody Review review){
-        return reviewService.updateMovieWithStarRating(reviewId, review);
+        return reviewService.updateReviewById(reviewId, review);
     }
 
 

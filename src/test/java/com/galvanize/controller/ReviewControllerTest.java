@@ -40,13 +40,14 @@ public class ReviewControllerTest {
     @Test
     public void postReview() throws Exception {
         Review expected = new Review();
+        expected.setReviewId(1L);
         expected.setImdbId("tt0241527");
         String json = objectMapper.writeValueAsString(expected);
-        when(restService.validate(anyString())).thenReturn(true);
+        when(restService.validate(anyString())).thenReturn(false);
         when(reviewService.postReview(any(Review.class))).thenReturn(expected);
         mvc.perform(post("/api/reviews").content(json).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$").value(expected));
+                .andExpect(jsonPath("$.reviewId").value(expected.getReviewId()));
     }
 
     @Test
@@ -57,7 +58,7 @@ public class ReviewControllerTest {
         review.add(expected);
         when(restService.validate(anyString())).thenReturn(true);
         when(reviewService.getAllReviews()).thenReturn(review);
-        mvc.perform(get("/api/reviews?title=startrek&apiKey=656a57f5"))
+        mvc.perform(get("/api/reviews?title=startrek"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("[0].rating").value(expected.getRating()))
                 .andExpect(jsonPath("$[0].imdbId").value(expected.getImdbId()))
@@ -81,7 +82,7 @@ public class ReviewControllerTest {
         Review expected = new Review();
         expected.setReviewId(1L);
         String json = objectMapper.writeValueAsString(expected);
-        when(reviewService.updateMovieWithStarRating(anyLong(), any(Review.class))).thenReturn(expected);
+        when(reviewService.updateReviewById(anyLong(), any(Review.class))).thenReturn(expected);
         mvc.perform(put("/api/reviews/rating/1").content(json).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.reviewId").value(expected.getReviewId()));
@@ -89,6 +90,10 @@ public class ReviewControllerTest {
 
     @Test
     public void deleteReviewById() throws Exception {
+        Review expected = new Review();
+        expected.setReviewId(1L);
+        String json = objectMapper.writeValueAsString(expected);
+        when(restService.validate(anyString())).thenReturn(true);
         when(reviewService.deleteById(anyLong())).thenReturn(true);
         mvc.perform(delete("/api/reviews/1"))
                 .andExpect(status().isOk())

@@ -56,7 +56,7 @@ public class ReviewServiceTest {
     @Test
     public void updateMovieWithStarRating(){
         ReviewService reviewService = new ReviewService(reviewRepository);
-        Review expected = reviewService.postReview(new Review(1L, "xyz@xyz.com", "tt0241527", "Harry Potter and the Sorcerer's Stone", 4, "hello"));
+        Review expected = reviewService.postReview(new Review(1L, "xyz@xyz.com", "tt0241527", "Harry Potter and the Sorcerer's Stone", 5, "hello"));
         when(reviewService.findReviewByImdbId(anyString())).thenReturn(expected);
         assertEquals(expected, reviewService.findReviewByImdbId("tt0241527"));
     }
