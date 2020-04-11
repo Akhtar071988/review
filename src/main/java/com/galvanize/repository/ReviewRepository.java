@@ -9,5 +9,5 @@ public interface ReviewRepository extends JpaRepository <Review, Long>{
     Review findReviewByImdbId(String imdbId);
     //Movie findTwoMovieReviewsByImdbId(String imdbId);
     Review findAllMoviesByTitle(String title);
-    boolean deleteById(long movieId);
+    boolean deleteById(long reviewId);
 }
