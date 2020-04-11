@@ -48,8 +48,8 @@ public class ReviewController {
     }
 
 
-    @DeleteMapping("/{id}")
-    public boolean updateMovie(@PathVariable long id){
-        return reviewService.deleteById(id);
+    @DeleteMapping("/{reviewId}")
+    public boolean updateMovie(@PathVariable long reviewId){
+        return reviewService.deleteById(reviewId);
     }
 }
