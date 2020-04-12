@@ -35,11 +35,11 @@ public class ReviewService {
         }
     }
 
-    public boolean deleteById (long reviewId, String email){
+    public boolean deleteById(long reviewId, String title){
         if (!reviewRepository.existsById(reviewId)) {
             return false;
         }
-        if(!email.equals(reviewRepository.findById(reviewId).get().getEmail())) {
+        if(!title.equals(reviewRepository.findById(reviewId).get().getTitle())) {
             return false;
         }
         return reviewRepository.deleteById(reviewId) == 1;

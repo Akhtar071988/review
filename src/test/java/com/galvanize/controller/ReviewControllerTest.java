@@ -92,8 +92,8 @@ public class ReviewControllerTest {
     public void deleteReviewById() throws Exception {
         Review expected = new Review();
         long reviewId = 1L;
-        String email = "xyz@xyz.com";
-        String json = objectMapper.writeValueAsString(email);
+        String title = "Harry Potter and the Sorcerer's Stone";
+        String json = objectMapper.writeValueAsString(title);
         when(reviewService.deleteById(anyLong(), anyString())).thenReturn(true);
         mvc.perform(delete("/api/reviews/" + reviewId).content(json).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())

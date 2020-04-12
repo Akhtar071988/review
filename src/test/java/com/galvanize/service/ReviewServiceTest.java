@@ -6,12 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.web.client.RestTemplate;
 
-import javax.persistence.Table;
-
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -66,10 +61,10 @@ public class ReviewServiceTest {
     public void deleteMovie(){
         Review expected = new Review();
         expected.setReviewId(1L);
-        expected.setEmail("xyz@xyz.com");
+        expected.setTitle("Harry Potter and the Sorcerer's Stone");
         when(reviewRepository.deleteById(anyLong())).thenReturn(1);
         when(reviewRepository.existsById(anyLong())).thenReturn(true);
         when(reviewRepository.findById(anyLong())).thenReturn(Optional.of(expected));
-        assertTrue(reviewService.deleteById(expected.getReviewId(), expected.getEmail()));
+        assertTrue(reviewService.deleteById(expected.getReviewId(), expected.getTitle()));
     }
 }

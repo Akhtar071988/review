@@ -49,7 +49,7 @@ public class ReviewController {
 
 
     @DeleteMapping("/{reviewId}")
-    ResponseEntity<Boolean> updateMovie(@PathVariable long reviewId, String email){
-        return ResponseEntity.ok(reviewService.deleteById(reviewId, email));
+    ResponseEntity<Boolean> updateMovie(@PathVariable long reviewId, String title){
+        return ResponseEntity.ok(reviewService.deleteById(reviewId, title));
     }
 }
