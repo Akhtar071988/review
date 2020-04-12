@@ -63,6 +63,7 @@ public class ReviewServiceTest {
 
     @Test
     public void deleteMovie(){
+        //ReviewService reviewService = new ReviewService(reviewRepository);
         when(reviewRepository.deleteById(anyLong())).thenReturn(true);
         assertTrue(reviewService.deleteById(1L));
     }

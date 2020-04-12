@@ -31,8 +31,8 @@ public class ReviewController {
         return null;
     }
 
-    @GetMapping
-    public ResponseEntity<List<Review>> searchReviews(@RequestParam String title){
+    @GetMapping("/title/{title}")
+    public ResponseEntity<List<Review>> searchReviews(@PathVariable String title){
         String searchUrl = url + "?s=" + title + apiKey;
         return ResponseEntity.ok(reviewService.getAllReviews());
     }
