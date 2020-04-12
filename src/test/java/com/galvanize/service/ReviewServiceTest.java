@@ -13,6 +13,7 @@ import javax.persistence.Table;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -63,8 +64,12 @@ public class ReviewServiceTest {
 
     @Test
     public void deleteMovie(){
-        //ReviewService reviewService = new ReviewService(reviewRepository);
-        when(reviewRepository.deleteById(anyLong())).thenReturn(true);
-        assertTrue(reviewService.deleteById(1L));
+        Review expected = new Review();
+        expected.setReviewId(1L);
+        expected.setEmail("xyz@xyz.com");
+        when(reviewRepository.deleteById(anyLong())).thenReturn(1);
+        when(reviewRepository.existsById(anyLong())).thenReturn(true);
+        when(reviewRepository.findById(anyLong())).thenReturn(Optional.of(expected));
+        assertTrue(reviewService.deleteById(expected.getReviewId(), expected.getEmail()));
     }
 }

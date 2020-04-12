@@ -91,12 +91,12 @@ public class ReviewControllerTest {
     @Test
     public void deleteReviewById() throws Exception {
         Review expected = new Review();
-        expected.setReviewId(1L);
-        String json = objectMapper.writeValueAsString(expected);
-        when(restService.validate(anyString())).thenReturn(true);
-        when(reviewService.deleteById(anyLong())).thenReturn(true);
-        mvc.perform(delete("/api/reviews/1"))
+        long reviewId = 1L;
+        String email = "xyz@xyz.com";
+        String json = objectMapper.writeValueAsString(email);
+        when(reviewService.deleteById(anyLong(), anyString())).thenReturn(true);
+        mvc.perform(delete("/api/reviews/" + reviewId).content(json).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$").value(true));
+                .andExpect(jsonPath("$").value(false));
     }
 }

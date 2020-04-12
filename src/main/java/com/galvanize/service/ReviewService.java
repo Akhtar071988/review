@@ -35,7 +35,13 @@ public class ReviewService {
         }
     }
 
-    public boolean deleteById (long reviewId){
-        return reviewRepository.deleteById(reviewId);
+    public boolean deleteById (long reviewId, String email){
+        if (!reviewRepository.existsById(reviewId)) {
+            return false;
+        }
+        if(!email.equals(reviewRepository.findById(reviewId).get().getEmail())) {
+            return false;
+        }
+        return reviewRepository.deleteById(reviewId) == 1;
     }
 }
